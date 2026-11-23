@@ -1,6 +1,7 @@
 ---
 title: CRUD
 description: Verilerle yapılan dört temel işlem; oluşturma, okuma, güncelleme, silme.
+summary: "CRUD, verilerle yapılan dört temel işlemin baş harfleridir: Create (oluşturma), Read (okuma), Update (güncelleme) ve Delete (silme). Neredeyse her uygulamanın temelinde bu dört işlem bulunur. Bir görev takip uygulamasında görev eklemek, listelemek, düzenlemek ve silmek tam olarak budur. Hem SQL komutlarında hem HTTP metotlarında karşılıkları vardır."
 category: Backend
 related: [sql, rest-api]
 ---

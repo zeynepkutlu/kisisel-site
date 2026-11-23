@@ -27,6 +27,7 @@ export default defineContentConfig({
       source: 'kavramlar/*.md',
       schema: z.object({
         category: z.string(), // ör. Veritabanı, Web, Backend
+        summary: z.string().optional(), // liste sayfasında kavramın altında görünen 3-4 cümlelik açıklama
         related: z.array(z.string()).optional(), // ilgili kavramların dosya adları (ör. ['sql', 'join'])
       }),
     }),

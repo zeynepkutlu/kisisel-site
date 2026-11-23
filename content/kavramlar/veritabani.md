@@ -1,6 +1,7 @@
 ---
 title: Veritabanı
 description: Verilerin düzenli, kalıcı ve sorgulanabilir şekilde saklandığı yer.
+summary: "Veritabanı, verileri düzenli bir yapıda ve kalıcı olarak saklayan sistemdir. Uygulama kapansa bile veriler kaybolmaz; istediğimizde arayabilir, filtreleyebilir ve güncelleyebiliriz. İlişkisel veritabanlarında veriler satır ve sütunlardan oluşan tablolarda tutulur, tablolar da anahtarlarla birbirine bağlanır. Bir kütüphane uygulamasında kitaplar, üyeler ve ödünç kayıtları ayrı tablolarda durabilir."
 category: Veritabanı
 related: [sql, primary-key, crud]
 ---

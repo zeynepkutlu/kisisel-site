@@ -1,6 +1,7 @@
 ---
 title: SSR
 description: Sayfanın HTML'inin tarayıcıda değil sunucuda hazırlanması.
+summary: "SSR (Server-Side Rendering), sayfanın HTML'inin tarayıcıda değil sunucuda hazırlanmasıdır. Ziyaretçi, JavaScript'in yüklenmesini beklemeden içeriği görür. Arama motorları da sayfanın içeriğini doğrudan okuyabildiği için SEO açısından avantajlıdır. Sayfa açıldıktan sonra Vue devreye girip butonları ve formları çalışır hale getirir; buna hydration denir."
 category: Web
 related: [rest-api]
 ---

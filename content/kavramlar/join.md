@@ -1,6 +1,7 @@
 ---
 title: JOIN
 description: İki ya da daha fazla tabloyu ortak bir sütun üzerinden birleştiren SQL işlemi.
+summary: "JOIN, farklı tablolardaki ilişkili satırları tek bir sonuçta birleştirir. Örneğin görevler bir tabloda, kullanıcılar başka bir tabloda duruyorsa her görevin kime ait olduğunu JOIN ile görebiliriz. INNER JOIN sadece iki tarafta da eşleşenleri getirir. LEFT JOIN ise soldaki tablonun bütün satırlarını getirir, karşılığı olmayanlarda NULL gösterir."
 category: Veritabanı
 related: [sql, primary-key]
 ---

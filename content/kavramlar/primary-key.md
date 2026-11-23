@@ -1,6 +1,7 @@
 ---
 title: Primary Key
 description: Bir tablodaki her satırı benzersiz şekilde tanımlayan sütun.
+summary: "Primary key (birincil anahtar), tablodaki her satırı benzersiz şekilde tanımlayan sütundur. Aynı değer iki satırda bulunamaz ve boş bırakılamaz; çoğunlukla otomatik artan bir id kullanılır. Aynı adda iki müşteri olsa bile id sayesinde karışmazlar. Başka bir tablo bu değeri foreign key olarak tutunca iki tablo birbirine bağlanır."
 category: Veritabanı
 related: [veritabani, join]
 ---
