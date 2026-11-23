@@ -10,11 +10,15 @@ usePageSeo({
 const config = useRuntimeConfig()
 const formspreeId = config.public.formspreeId
 
+// Form kapalıyken ya da gönderim başarısızsa ziyaretçiye önerilecek diğer yol
+const linkedin = useProfile().socials.find((s) => s.title === 'LinkedIn')?.href
+
 // ref(): değişince arayüzün otomatik güncellendiği (reaktif) değişken
 const form = ref() // v-form bileşenine erişmek için (template'te ref="form")
 const name = ref('')
 const email = ref('')
 const message = ref('')
+const gotcha = ref('') // spam tuzağı: insanlar bu alanı görmez, botlar doldurur
 
 const loading = ref(false) // gönderilirken butonda dönen ikon
 const sent = ref(false) // başarı bildirimi
@@ -36,7 +40,14 @@ async function submit() {
     await $fetch(`https://formspree.io/f/${formspreeId}`, {
       method: 'POST',
       headers: { Accept: 'application/json' },
-      body: { name: name.value, email: email.value, message: message.value },
+      // _subject: sana gelecek e-postanın konusu, _gotcha: doluysa Formspree mesajı spam sayar
+      body: {
+        name: name.value,
+        email: email.value,
+        message: message.value,
+        _subject: `Siteden yeni mesaj: ${name.value}`,
+        _gotcha: gotcha.value,
+      },
     })
     sent.value = true
     form.value.reset()
@@ -57,9 +68,12 @@ async function submit() {
       lead="Bir sorun, fikrin ya da iş birliği teklifin mi var? Aşağıdaki formdan yazabilirsin."
     />
 
-    <!-- Formspree ID ayarlanmadıysa geliştiriciye uyarı göster -->
-    <v-alert v-if="!formspreeId" type="warning" variant="tonal" class="mb-6">
-      Form henüz bağlı değil. <code>.env</code> dosyasına <code>NUXT_PUBLIC_FORMSPREE_ID</code> ekle.
+    <!-- Formspree ID'si yoksa (NUXT_PUBLIC_FORMSPREE_ID) form kapalıdır; ziyaretçiye başka yol göster -->
+    <v-alert v-if="!formspreeId" type="info" variant="tonal" class="mb-6">
+      Form şu an kapalı.
+      <template v-if="linkedin">
+        Bana <a :href="linkedin" target="_blank" rel="noopener">LinkedIn</a> üzerinden yazabilirsin.
+      </template>
     </v-alert>
 
     <v-card class="pa-6 pa-md-8">
@@ -68,6 +82,8 @@ async function submit() {
         <v-text-field v-model="name" label="Adın" :rules="[rules.required]" prepend-inner-icon="mdi-account-outline" class="mb-2" />
         <v-text-field v-model="email" label="E-posta" type="email" :rules="[rules.required, rules.email]" prepend-inner-icon="mdi-email-outline" class="mb-2" />
         <v-textarea v-model="message" label="Mesajın" :rules="[rules.required]" rows="5" prepend-inner-icon="mdi-message-outline" class="mb-2" />
+        <!-- Spam tuzağı: ekranda görünmez, klavyeyle ve ekran okuyucuyla da ulaşılmaz -->
+        <input v-model="gotcha" type="text" name="_gotcha" class="gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <v-btn
           type="submit"
           color="primary"
@@ -86,3 +102,10 @@ async function submit() {
     <v-snackbar v-model="error" color="error" timeout="5000">Mesaj gönderilemedi, lütfen tekrar dene.</v-snackbar>
   </v-container>
 </template>
+
+<style scoped>
+.gotcha {
+  position: absolute;
+  left: -9999px;
+}
+</style>

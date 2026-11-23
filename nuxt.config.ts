@@ -31,10 +31,11 @@ export default defineNuxtConfig({
   },
 
   // Çalışma zamanı ayarları. public altındakiler tarayıcıda da okunabilir.
-  // Değeri .env dosyasındaki NUXT_PUBLIC_FORMSPREE_ID ile doldurulur.
+  // .env dosyasındaki NUXT_PUBLIC_... değerleri buradakilerin yerine geçer (ör. NUXT_PUBLIC_FORMSPREE_ID).
   runtimeConfig: {
     public: {
-      formspreeId: '',
+      // İletişim formunun Formspree ID'si. Gizli değil: form gönderilirken tarayıcıda zaten görünür.
+      formspreeId: 'mrpqoobw',
       // Sitenin yayındaki adresi (sonunda / olmadan). SEO linkleri (canonical, paylaşım görseli,
       // site haritası) bununla kurulur. Yayına alınca .env'deki NUXT_PUBLIC_SITE_URL ile değiştir.
       siteUrl: 'https://kisisel-site-rust.vercel.app',
