@@ -167,7 +167,7 @@ export function useProfile() {
       'SQL', 'MySQL', 'Supabase', 'Firebase', 'Node.js', 'Express.js',
       'JavaScript', 'Vue.js', 'Nuxt', 'TypeScript', 'HTML', 'CSS', 'Power BI', 'Tableau',
     ],
-    // Sosyal linkler. href boş bırakılırsa buton görünür ama tıklanmaz, yanında "yakında" yazar.
+    // Sosyal linkler. href boş bırakılırsa link footer'da görünmez; adresi yazınca kendiliğinden gelir.
     socials: [
       { title: 'GitHub', icon: '$github', href: 'https://github.com/zeynepkutlu' },
       { title: 'LinkedIn', icon: '$linkedin', href: 'https://www.linkedin.com/in/zeynep-k-3b5b352ab' },

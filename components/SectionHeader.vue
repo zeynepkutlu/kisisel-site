@@ -11,7 +11,8 @@ defineProps<{
 
 <template>
   <div class="section-header mb-6">
-    <div class="d-flex align-baseline ga-3">
+    <!-- flex-wrap: dar ekranda sayı, başlığın yanına sıkışmak yerine altına iner -->
+    <div class="d-flex flex-wrap align-baseline column-gap">
       <h2 class="text-h4 display">{{ title }}</h2>
       <span v-if="count !== undefined" class="kicker">{{ count }} {{ countLabel }}</span>
     </div>
@@ -30,5 +31,13 @@ defineProps<{
   gap: 16px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--rule);
+}
+.column-gap {
+  column-gap: 12px;
+}
+/* Sayı ve "Tümü →" kendi içinde satıra bölünmesin */
+.kicker,
+.ui-link {
+  white-space: nowrap;
 }
 </style>

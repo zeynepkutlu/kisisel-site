@@ -4,6 +4,8 @@ const route = useRoute()
 
 // İsim, açıklama ve sosyal linkler composables/useProfile.ts'ten geliyor
 const profile = useProfile()
+// Adresi (href) boş olan hesap gösterilmez; useProfile.ts'te adres yazılınca kendiliğinden görünür
+const socials = profile.socials.filter((s) => s.href)
 
 // Yazı adresleri: hem yazı sayısı hem "Rastgele bir yazı" butonu için (içerik eklendikçe kendiliğinden artar)
 const { data: postPaths } = await useAsyncData('footer-post-paths', async () => {
@@ -28,17 +30,9 @@ const year = new Date().getFullYear()
 
         <v-col cols="6" md="3">
           <p class="kicker mb-3">Bağlantılar</p>
-          <template v-for="s in profile.socials" :key="s.title">
-            <!-- Adres varsa tıklanabilir link -->
-            <a v-if="s.href" :href="s.href" target="_blank" rel="noopener" class="footer-link">
-              <v-icon :icon="s.icon" size="16" class="mr-1" />{{ s.title }}
-            </a>
-            <!-- Adres yoksa görünür ama tıklanmaz -->
-            <span v-else class="footer-link disabled">
-              <v-icon :icon="s.icon" size="16" class="mr-1" />{{ s.title }}
-              <span class="soon">yakında</span>
-            </span>
-          </template>
+          <a v-for="s in socials" :key="s.title" :href="s.href" target="_blank" rel="noopener" class="footer-link">
+            <v-icon :icon="s.icon" size="16" class="mr-1" />{{ s.title }}
+          </a>
         </v-col>
 
         <v-col cols="6" md="4">
@@ -111,19 +105,5 @@ const year = new Date().getFullYear()
   color: rgb(var(--f-fg));
   text-decoration: underline;
   text-underline-offset: 4px;
-}
-/* Henüz adresi olmayan hesap: soluk ve tıklanmaz */
-.footer-link.disabled {
-  cursor: default;
-  text-decoration: none;
-  color: rgba(var(--f-fg), 0.45);
-}
-.soon {
-  margin-left: 6px;
-  padding: 1px 6px;
-  border: 1px solid rgba(var(--f-fg), 0.25);
-  border-radius: 4px;
-  font-size: 11px;
-  letter-spacing: 0.08em;
 }
 </style>
