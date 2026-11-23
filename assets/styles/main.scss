@@ -1,0 +1,233 @@
+// Global stiller: dergi / editoryal tasarım dili.
+// rgb(var(--v-theme-...)) ile Vuetify tema renklerini kullanıyoruz; iki temada da uyumlu olur.
+
+:root {
+  --ui-font: 'Alegreya Sans', system-ui, sans-serif; // menü, etiket, buton gibi arayüz yazıları
+  --maxw: 1200px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+// İnce ayraç çizgisi rengi (metin renginin %11'i)
+.v-application {
+  --rule: rgba(var(--v-theme-on-background), 0.11);
+  --rule-strong: rgba(var(--v-theme-on-background), 0.22);
+
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+
+  // Hafif nokta dokusu: düz renk yerine kâğıt/baskı hissi
+  background-image: radial-gradient(rgba(var(--v-theme-on-background), 0.05) 0.8px, transparent 1.25px);
+  background-size: 22px 22px;
+}
+
+// Sayfa genişliği: içerik en fazla 1200px
+.v-container {
+  max-width: var(--maxw);
+}
+
+// Butonlar ve form alanları arayüz yazı tipiyle
+.v-btn,
+.v-field,
+.v-label,
+.v-list-item-title,
+.v-chip {
+  font-family: var(--ui-font);
+}
+
+// Kartlar: gölge yok, ince çerçeve, üstüne gelince hafif yükselme
+.v-card {
+  border: 1px solid var(--rule);
+  transition:
+    transform 0.25s var(--ease),
+    border-color 0.25s var(--ease);
+
+  &[href]:hover,
+  &.v-card--link:hover {
+    transform: translateY(-3px);
+    border-color: var(--rule-strong);
+  }
+}
+
+// ---- Yardımcı sınıflar ----
+
+// Küçük, büyük harfli, geniş aralıklı etiket (kategori, tarih, bölüm etiketi)
+.kicker {
+  font-family: var(--ui-font);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(var(--v-theme-on-background), 0.6);
+}
+
+// Vurgulu etiket: ikincil renk (koyu yeşil). Bordo tıklanabilir şeylere ayrıldı.
+.kicker--accent {
+  color: rgb(var(--v-theme-secondary));
+}
+
+// Büyük serif başlıklar: sıkı satır aralığı ve harf aralığı
+.display {
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+
+// Başlık rengi: ikincil renk (açık temada koyu yeşil, koyu temada açık yeşil).
+// Sayfa/bölüm başlıkları, kart başlıkları ve yazı içi ara başlıklar.
+// Gövde metni okunurluk için mürekkep renginde kalıyor; bordo tıklanabilir şeylere ayrılmış durumda.
+.display,
+.project-title,
+.post-title,
+.cert-title,
+.shelf-title,
+.prose h2,
+.prose h3 {
+  color: rgb(var(--v-theme-secondary));
+}
+
+// İnce yatay çizgi
+.rule {
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+
+// Giriş paragrafı (başlık altındaki büyük metin)
+.lead {
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: rgba(var(--v-theme-on-background), 0.75);
+}
+
+// Arayüz yazı tipiyle düz link (Tümü →, rastgele yazı...)
+.ui-link {
+  font-family: var(--ui-font);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--v-theme-primary));
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+// Link gibi görünen buton (ör. "Rastgele bir yazı →"): tarayıcının buton stillerini sıfırla
+button.ui-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: rgb(var(--v-theme-primary));
+}
+
+// ---- Blog yazısı içeriği (ContentRenderer) ----
+.prose {
+  font-size: 1.15rem;
+  line-height: 1.8;
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 2.5rem 0 0.75rem;
+  }
+
+  h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 2rem 0 0.5rem;
+  }
+
+  // Başlıklardaki otomatik link (#) altı çizili görünmesin
+  h2 a,
+  h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  p,
+  ul,
+  ol,
+  pre,
+  blockquote {
+    margin-bottom: 1.25rem;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.5rem;
+  }
+
+  a {
+    color: rgb(var(--v-theme-primary));
+    text-underline-offset: 3px;
+  }
+
+  code {
+    font-size: 0.85em;
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    background: rgba(var(--v-theme-on-surface), 0.08);
+  }
+
+  pre {
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    border: 1px solid var(--rule);
+    overflow-x: auto;
+    background: rgb(var(--v-theme-surface));
+
+    code {
+      padding: 0;
+      background: none;
+    }
+  }
+
+  // Tablolar: ince çizgili, başlık satırı etiket stilinde
+  table {
+    width: 100%;
+    margin-bottom: 1.25rem;
+    border-collapse: collapse;
+    font-size: 1rem;
+  }
+
+  th,
+  td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  th {
+    font-family: var(--ui-font);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(var(--v-theme-on-background), 0.6);
+  }
+
+  // Koyu temada kod renklendirmesinin koyu renklerini kullan (Nuxt Content --shiki-dark değişkenini üretir)
+  .v-theme--dark & pre.shiki span {
+    color: var(--shiki-dark) !important;
+  }
+
+  // Alıntı: büyük italik serif, kehribar çizgi
+  blockquote {
+    padding-left: 1.25rem;
+    border-left: 3px solid rgb(var(--v-theme-primary));
+    font-style: italic;
+    font-size: 1.25rem;
+    color: rgba(var(--v-theme-on-background), 0.8);
+
+    p {
+      margin: 0;
+    }
+  }
+}

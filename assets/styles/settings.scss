@@ -1,0 +1,16 @@
+// Vuetify Sass ayarları: Vuetify'ın kendi stillerini derlerken kullandığı değişkenleri değiştirir.
+// nuxt.config.ts'te vuetify({ styles: { configFile } }) ile bağlandı.
+// Böylece tüm Vuetify bileşenleri (buton, kart, başlık sınıfları...) bizim yazı tiplerimizi kullanır.
+
+@use 'vuetify/settings' with (
+  // Gövde metni: serif (dergi/kitap hissi)
+  $body-font-family: ('Alegreya', Georgia, serif),
+  // text-h1 ... text-h6 başlık sınıfları da serif
+  $heading-font-family: ('Alegreya', Georgia, serif),
+  // Butonlar büyük harf olmasın; etiket stilini kendimiz veriyoruz
+  $button-text-transform: none,
+  $button-text-letter-spacing: 0.02em,
+  // Köşe yuvarlaklıkları
+  $border-radius-root: 8px,
+  $card-border-radius: 12px,
+);

@@ -1,0 +1,14 @@
+{
+  "name": "Zeynep Kutlu",
+  "short_name": "Zeynep",
+  "description": "Zeynep Kutlu'nun kişisel sitesi: projeler, öğrendiklerim, yazılar ve raf.",
+  "lang": "tr",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F3ECDF",
+  "theme_color": "#7B1E2C",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
