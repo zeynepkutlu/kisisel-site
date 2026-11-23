@@ -35,6 +35,9 @@ export function useProjects(): Project[] {
       kind: 'Kişisel proje',
       tags: ['Nuxt 3', 'Vuetify', 'TypeScript', 'Nuxt Content'],
       icon: 'mdi-web',
+      live: true,
+      link: '/', // sitenin kendisi; adres (domain) değişse de bozulmaz
+      repo: 'https://github.com/zeynepkutlu/kisisel-site',
     },
     {
       title: 'Kütüphane Otomasyonu',
