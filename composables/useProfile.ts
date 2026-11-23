@@ -137,7 +137,7 @@ export function useProfile() {
     },
     // Ana sayfadaki büyük başlığın altındaki cümle
     tagline:
-      'Girne Üniversitesi Bilgisayar Programcılığı öğrencisiyim. Web teknolojilerini öğreniyor, öğrendiklerimi burada paylaşıyorum.',
+      "Bilgisayar Programcılığı öğrencisiyim. En çok SQL'i seviyorum; web uygulamaları geliştiriyor, öğrendiklerimi burada paylaşıyorum.",
     // Ana sayfadaki "Şu an" kutusu. Boş bırakılan satır görünmez.
     // "Son bitirdiğim kurs" satırı sertifikalardan otomatik gelir, buraya yazmaya gerek yok.
     now: {
