@@ -3,6 +3,7 @@
 // Bu yüzden layout burada yok: v-app'i kendimiz koyuyoruz. Layout'u bilerek kullanmadık;
 // hata layout'tan ya da içerik sorgusundan geliyorsa hata sayfası da çökmesin.
 import type { NuxtError } from '#app'
+import { SITE_NAME } from '~/composables/usePageSeo'
 
 const props = defineProps<{ error: NuxtError }>()
 
@@ -34,7 +35,7 @@ const goHome = () => clearError({ redirect: '/' })
         <h1 class="text-h4 text-md-h3 display mb-4">{{ title }}</h1>
         <p class="lead mb-4">{{ lead }}</p>
         <p v-if="message" class="message mb-8">{{ message }}</p>
-        <v-btn color="primary" size="large" prepend-icon="mdi-home-outline" @click="goHome">
+        <v-btn color="primary" size="large" prepend-icon="$home-outline" @click="goHome">
           Ana Sayfaya Dön
         </v-btn>
       </v-container>

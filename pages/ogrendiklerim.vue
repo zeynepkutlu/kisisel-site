@@ -150,9 +150,10 @@ const certGroups = (['Teknik', 'Diğer'] as const)
   font-weight: 700;
   line-height: 1.45;
 }
-/* Ayın günü: kehribar renkli küçük sayı */
+/* Ayın günü: bordo küçük sayı (Alegreya Sans'ın yüklü olan 500 ağırlığıyla) */
 .journey-items .day {
   font-family: var(--ui-font);
+  font-weight: 500;
   font-size: 0.9rem;
   color: rgb(var(--v-theme-primary));
   text-align: right;

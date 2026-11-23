@@ -70,6 +70,7 @@ const metaOf = (i: { creator?: string; year?: number; platform?: string }) =>
       <v-chip
         :variant="active === null ? 'flat' : 'outlined'"
         :color="active === null ? 'primary' : undefined"
+        :aria-pressed="active === null"
         @click="active = null"
       >
         Tümü · {{ total }}
@@ -79,6 +80,7 @@ const metaOf = (i: { creator?: string; year?: number; platform?: string }) =>
         :key="t"
         :variant="active === t ? 'flat' : 'outlined'"
         :color="active === t ? 'primary' : undefined"
+        :aria-pressed="active === t"
         @click="active = t"
       >
         {{ t }} · {{ countOf(t) }}

@@ -21,7 +21,7 @@ const initial = computed(() => props.title.charAt(0))
     <div class="cover">
       <img v-if="image" :src="image" alt="" class="cover-img" loading="lazy" />
       <span v-else class="cover-initial">{{ initial }}</span>
-      <span v-if="youtube" class="play"><v-icon icon="mdi-play" size="28" /></span>
+      <span v-if="youtube" class="play"><v-icon icon="$play" size="28" /></span>
       <span v-if="category" class="kicker cover-label">{{ category }}</span>
     </div>
     <div class="pa-5">

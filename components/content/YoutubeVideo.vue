@@ -26,7 +26,7 @@ const embed = computed(() => `https://www.youtube-nocookie.com/embed/${props.id}
     />
     <button v-else type="button" class="yt-poster" :aria-label="`Videoyu oynat: ${title ?? ''}`" @click="playing = true">
       <img :src="thumb" alt="" loading="lazy" />
-      <span class="yt-play"><v-icon icon="mdi-play" size="34" /></span>
+      <span class="yt-play"><v-icon icon="$play" size="34" /></span>
     </button>
   </div>
 </template>

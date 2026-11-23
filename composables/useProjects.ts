@@ -23,7 +23,7 @@ export function useProjects(): Project[] {
         'Kendi başıma geliştirip yayına aldığım müşteri ilişkileri yönetimi (CRM) uygulaması. Müşterileri filtreleyip onlarla ilgili bilgileri tek yerde tutmayı sağlıyor.',
       kind: 'Kişisel proje',
       tags: ['Vue.js', 'Node.js', 'Supabase'],
-      icon: 'mdi-account-group-outline',
+      icon: '$account-group-outline',
       live: true,
       link: 'https://vip-crm-fawn.vercel.app/',
       // Depo şimdilik gizli (private). Herkese açık yapılınca alttaki satırın başındaki // işaretini kaldır:
@@ -35,7 +35,7 @@ export function useProjects(): Project[] {
         'Şu an gezdiğin site. Nuxt öğrenirken, yapay zekâ desteğiyle geliştirdim; tasarım kararları ve içerik bana ait.',
       kind: 'Kişisel proje',
       tags: ['Nuxt 3', 'Vuetify', 'TypeScript', 'Nuxt Content'],
-      icon: 'mdi-web',
+      icon: '$web',
       live: true,
       link: '/', // sitenin kendisi; adres (domain) değişse de bozulmaz
       repo: 'https://github.com/zeynepkutlu/kisisel-site',
@@ -45,21 +45,21 @@ export function useProjects(): Project[] {
       description: 'Staj döneminde danışmanımla birlikte geliştirdiğim kütüphane otomasyon sistemi.',
       kind: 'Staj projesi',
       tags: STAJ_STACK,
-      icon: 'mdi-bookshelf',
+      icon: '$bookshelf',
     },
     {
       title: 'Blog Sitesi',
       description: 'Staj döneminde geliştirdiğim blog sitesi.',
       kind: 'Staj projesi',
       tags: STAJ_STACK,
-      icon: 'mdi-post-outline',
+      icon: '$post-outline',
     },
     {
       title: 'Görev Takip Uygulaması',
       description: 'Staj döneminde geliştirdiğim görev takip uygulaması.',
       kind: 'Staj projesi',
       tags: STAJ_STACK,
-      icon: 'mdi-format-list-checks',
+      icon: '$format-list-checks',
     },
   ]
 }

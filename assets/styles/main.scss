@@ -11,6 +11,42 @@ html {
   scroll-behavior: smooth;
 }
 
+// ---- Erişilebilirlik ----
+
+// Klavyeyle (Tab) gezerken odaklanan öğe net görünsün; fareyle tıklayınca çizgi çıkmaz
+:focus-visible {
+  outline: 2px solid rgb(var(--v-theme-primary));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+// Footer koyu yeşil: bordo çizgi görünmez, yazı rengini kullan
+.site-footer :focus-visible {
+  outline-color: rgb(var(--f-fg));
+}
+// Ana içerik "İçeriğe geç" ile odak alır ama etrafına çerçeve çizilmez
+#icerik:focus {
+  outline: none;
+}
+// "İçeriğe geç" linki: ekran dışında durur, odaklanınca sol üstte belirir
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 4000;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: var(--ui-font);
+  font-weight: 500;
+  text-decoration: none;
+  background: rgb(var(--v-theme-primary));
+  color: rgb(var(--v-theme-on-primary));
+  transform: translateY(-200%);
+
+  &:focus {
+    transform: none;
+  }
+}
+
 // İnce ayraç çizgisi rengi (metin renginin %11'i)
 .v-application {
   --rule: rgba(var(--v-theme-on-background), 0.11);

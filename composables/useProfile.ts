@@ -169,9 +169,9 @@ export function useProfile() {
     ],
     // Sosyal linkler. href boş bırakılırsa buton görünür ama tıklanmaz, yanında "yakında" yazar.
     socials: [
-      { title: 'GitHub', icon: 'mdi-github', href: 'https://github.com/zeynepkutlu' },
-      { title: 'LinkedIn', icon: 'mdi-linkedin', href: 'https://www.linkedin.com/in/zeynep-k-3b5b352ab' },
-      { title: 'Instagram', icon: 'mdi-instagram', href: '' },
+      { title: 'GitHub', icon: '$github', href: 'https://github.com/zeynepkutlu' },
+      { title: 'LinkedIn', icon: '$linkedin', href: 'https://www.linkedin.com/in/zeynep-k-3b5b352ab' },
+      { title: 'Instagram', icon: '$instagram', href: '' },
     ],
   }
 }

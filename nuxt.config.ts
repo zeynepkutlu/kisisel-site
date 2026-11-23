@@ -1,4 +1,22 @@
-import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
+import { transformAssetUrls } from 'vite-plugin-vuetify'
+
+// Güvenlik: tarayıcının hangi kaynaklardan ne yükleyebileceğini söyleyen kurallar (CSP)
+const csp = [
+  "default-src 'self'",
+  // 'unsafe-inline': Nuxt sayfa verisini, Vuetify temayı satır içi yazıyor. 'wasm-unsafe-eval': Nuxt Content'in SQLite'ı (WASM)
+  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https://i.ytimg.com", // YouTube küçük resimleri
+  "font-src 'self' data:",
+  "media-src 'self'", // sesli notlar
+  "connect-src 'self' https://formspree.io", // iletişim formu
+  'frame-src https://www.youtube-nocookie.com', // gömülü videolar
+  "worker-src 'self' blob:",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self' https://formspree.io",
+  "frame-ancestors 'none'", // site başka bir sitenin içine gömülemesin
+].join('; ')
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -15,6 +33,8 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/site.webmanifest' },
+        // RSS okuyucular blogu buradan bulur
+        { rel: 'alternate', type: 'application/rss+xml', title: 'Zeynep Kutlu · Blog', href: '/blog/feed.xml' },
       ],
       meta: [
         { name: 'theme-color', content: '#7B1E2C' }, // telefonda tarayıcı çubuğunun rengi (bordo)
@@ -28,6 +48,20 @@ export default defineNuxtConfig({
   // Adres kuralları: eski adresleri yenilerine kalıcı (301) olarak yönlendir
   routeRules: {
     '/izlediklerim': { redirect: { to: '/raf', statusCode: 301 } },
+  },
+
+  // Güvenlik başlıkları. $production: sadece yayında (geliştirmede Nuxt DevTools ve canlı yenileme bozulmasın)
+  $production: {
+    routeRules: {
+      '/**': {
+        headers: {
+          'X-Content-Type-Options': 'nosniff',
+          'X-Frame-Options': 'DENY',
+          'Referrer-Policy': 'strict-origin-when-cross-origin',
+          'Content-Security-Policy': csp,
+        },
+      },
+    },
   },
 
   // Çalışma zamanı ayarları. public altındakiler tarayıcıda da okunabilir.
@@ -44,16 +78,15 @@ export default defineNuxtConfig({
     },
   },
 
-  // Global CSS: yazı tipleri + Material Design ikonları + kendi stillerimiz
-  // @fontsource: yazı tiplerini Google'a bağlanmadan kendi sitemizden sunar
+  // Global CSS: yazı tipleri + kendi stillerimiz (ikonlar utils/icons.ts'te)
+  // @fontsource: yazı tiplerini Google'a bağlanmadan kendi sitemizden sunar (font-display: swap hazır gelir).
+  // Sadece kullanılan ağırlıklar: 400-italic alıntılarda, Sans 500 etiket ve butonlarda kullanılıyor.
   css: [
     '@fontsource/alegreya/400.css',
     '@fontsource/alegreya/400-italic.css',
     '@fontsource/alegreya/700.css',
     '@fontsource/alegreya-sans/400.css',
     '@fontsource/alegreya-sans/500.css',
-    '@fontsource/alegreya-sans/700.css',
-    '@mdi/font/css/materialdesignicons.css',
     '~/assets/styles/main.scss',
   ],
 
@@ -67,18 +100,10 @@ export default defineNuxtConfig({
     '@nuxt/content',
 
     // Vuetify bileşenlerinin otomatik import edilmesi (tree-shaking)
-    (_options, nuxt) => {
-      nuxt.hooks.hook('vite:extendConfig', (config) => {
-        // @ts-expect-error plugins dizisi her zaman tanımlı
-        config.plugins.push(
-          vuetify({
-            autoImport: true,
-            // Vuetify'ın Sass değişkenlerini (yazı tipi, köşe yuvarlaklığı...) bu dosyadan al
-            styles: { configFile: 'assets/styles/settings.scss' },
-          }),
-        )
-      })
-    },
+    './modules/vuetify',
+
+    // ESLint: kod kalitesi kuralları (npm run lint)
+    '@nuxt/eslint',
   ],
 
   content: {
@@ -92,7 +117,9 @@ export default defineNuxtConfig({
       },
     },
     experimental: {
-      // Node.js'in kendi içindeki SQLite'ı kullan (ek native paket kurmaya gerek kalmaz, Node 22.5+)
+      // Node.js'in kendi içindeki SQLite'ı kullan (ek native paket kurmaya gerek kalmaz, Node 22.5+).
+      // Vercel'de Node sürümü 22'nin altına inerse build bozulur: ya sürümü yükselt
+      // ya da bu satırı kaldırıp "npm install better-sqlite3" çalıştır.
       sqliteConnector: 'native',
     },
   },

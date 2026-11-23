@@ -56,28 +56,39 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
       <v-spacer />
 
       <!-- Masaüstü menü: d-none d-md-flex → orta ve geniş ekranda (960px+) görünür -->
-      <nav class="d-none d-md-flex align-center menu">
-        <NuxtLink v-for="link in links" :key="link.to" :to="link.to" :class="{ active: isActive(link) }">
+      <nav class="d-none d-md-flex align-center menu" aria-label="Ana menü">
+        <NuxtLink
+          v-for="link in links"
+          :key="link.to"
+          :to="link.to"
+          :class="{ active: isActive(link) }"
+          :aria-current="isActive(link) ? 'page' : undefined"
+        >
           {{ link.title }}
         </NuxtLink>
       </nav>
 
       <v-btn
-        :icon="isDark ? 'mdi-white-balance-sunny' : 'mdi-moon-waning-crescent'"
+        :icon="isDark ? '$white-balance-sunny' : '$moon-waning-crescent'"
         variant="text"
         size="small"
         class="ml-4"
-        aria-label="Temayı değiştir"
+        :aria-label="isDark ? 'Açık temaya geç' : 'Koyu temaya geç'"
         @click="toggleTheme"
       />
 
       <!-- Hamburger: geniş olmayan ekranlarda -->
-      <v-app-bar-nav-icon class="d-md-none" aria-label="Menüyü aç" @click="drawer = !drawer" />
+      <v-app-bar-nav-icon
+        class="d-md-none"
+        :aria-label="drawer ? 'Menüyü kapat' : 'Menüyü aç'"
+        :aria-expanded="drawer"
+        @click="drawer = !drawer"
+      />
     </v-container>
   </v-app-bar>
 
   <!-- Mobil çekmece menü: sağdan açılır, linke tıklayınca kapanır -->
-  <v-navigation-drawer v-model="drawer" location="right" temporary width="300">
+  <v-navigation-drawer v-model="drawer" location="right" temporary width="300" aria-label="Mobil menü">
     <div class="pa-6">
       <p class="kicker mb-6">Menü</p>
       <NuxtLink to="/" class="drawer-link" :class="{ active: route.path === '/' }" @click="drawer = false">

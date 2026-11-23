@@ -1,6 +1,8 @@
 // Vuetify eklentisi: Nuxt uygulaması başlarken Vuetify'ı Vue'ya kaydeder.
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
+import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
+import { siteIcons } from '~/utils/icons'
 
 export default defineNuxtPlugin((nuxtApp) => {
   // Kullanıcının tema tercihi cookie'de saklanıyor.
@@ -9,6 +11,12 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const vuetify = createVuetify({
     ssr: true, // Nuxt sunucu tarafında render ettiği için
+    // İkonlar font yerine SVG: Vuetify'ın kendi ikonları (aliases) + sitenin ikonları (utils/icons.ts)
+    icons: {
+      defaultSet: 'mdi',
+      aliases: { ...aliases, ...siteIcons },
+      sets: { mdi },
+    },
     theme: {
       defaultTheme: themeCookie.value,
       themes: {

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 // Kök bileşen: her sayfada geçerli olan SEO kuralları burada.
+// Nuxt bunları otomatik import edebiliyor; nereden geldikleri belli olsun diye açıkça yazıyoruz.
+import { useProfile } from '~/composables/useProfile'
+import { HOME_TITLE, SITE_NAME, useJsonLd } from '~/composables/usePageSeo'
 
 // Sayfa başlığı kuralı: sayfa başlık verdiyse "Projeler · Zeynep Kutlu",
 // vermediyse (ana sayfa) "Zeynep Kutlu · Bilgisayar Programcılığı Öğrencisi"
@@ -10,10 +13,19 @@ useHead({
 // Google Search Console doğrulaması: sitenin sana ait olduğunu kanıtlayan etiket (kod boşsa yazılmaz)
 useSeoMeta({ googleSiteVerification: useRuntimeConfig().public.googleVerification || undefined })
 
+// Varsayılan paylaşım kartı: bir sayfa usePageSeo çağırmayı unutursa bunlar kullanılır.
+// Sayfalar kendi başlık, açıklama ve görselini usePageSeo ile verir (blog yazılarında yazıdan gelir).
+const { siteUrl: rawSiteUrl } = useRuntimeConfig().public
+const siteUrl = rawSiteUrl.replace(/\/$/, '')
+useSeoMeta({
+  ogTitle: HOME_TITLE,
+  ogImage: `${siteUrl}/og-image.png`,
+  twitterCard: 'summary_large_image',
+})
+
 // Google için site ve kişi bilgisi (JSON-LD yapılandırılmış veri).
 // sameAs: aynı kişiye ait diğer profiller; Google bunları birbirine bağlar.
 const profile = useProfile()
-const siteUrl = useRuntimeConfig().public.siteUrl.replace(/\/$/, '')
 const person = {
   '@type': 'Person',
   '@id': `${siteUrl}/#person`,

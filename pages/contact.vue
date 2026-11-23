@@ -95,9 +95,9 @@ async function submit() {
     <v-card class="pa-6 pa-md-8">
       <!-- @submit.prevent: sayfanın yenilenmesini engeller, submit() fonksiyonunu çalıştırır -->
       <v-form ref="form" :disabled="loading" @submit.prevent="submit">
-        <v-text-field v-model="name" label="Adın" :rules="[rules.required]" prepend-inner-icon="mdi-account-outline" class="mb-2" />
-        <v-text-field v-model="email" label="E-posta" type="email" :rules="[rules.required, rules.email]" prepend-inner-icon="mdi-email-outline" class="mb-2" />
-        <v-textarea v-model="message" label="Mesajın" :rules="[rules.required]" rows="5" prepend-inner-icon="mdi-message-outline" class="mb-2" />
+        <v-text-field v-model="name" label="Adın" :rules="[rules.required]" prepend-inner-icon="$account-outline" class="mb-2" />
+        <v-text-field v-model="email" label="E-posta" type="email" :rules="[rules.required, rules.email]" prepend-inner-icon="$email-outline" class="mb-2" />
+        <v-textarea v-model="message" label="Mesajın" :rules="[rules.required]" rows="5" prepend-inner-icon="$message-outline" class="mb-2" />
         <!-- Spam tuzağı: ekranda görünmez, klavyeyle ve ekran okuyucuyla da ulaşılmaz -->
         <input v-model="gotcha" type="text" name="_gotcha" class="gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <v-btn
@@ -105,7 +105,7 @@ async function submit() {
           color="primary"
           size="large"
           block
-          append-icon="mdi-send"
+          append-icon="$send"
           :loading="loading"
         >
           Gönder

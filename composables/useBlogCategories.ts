@@ -12,25 +12,25 @@ export interface BlogCategory {
 export const BLOG_CATEGORIES: BlogCategory[] = [
   {
     name: 'Öğrenme günlüğü',
-    icon: 'mdi-notebook-edit-outline',
+    icon: '$notebook-edit-outline',
     description: 'Kod yazarken öğrendiğim şeyler, takıldığım yerler ve nasıl çözdüğüm.',
     template: 'sablonlar/ogrenme-gunlugu.md',
   },
   {
     name: 'Ekrandan öğrendiklerim',
-    icon: 'mdi-movie-open-outline',
+    icon: '$movie-open-outline',
     description: 'İzlediğim dizi ve filmlerin bana düşündürdükleri, aklımda kalan sahneler ve dersler.',
     template: 'sablonlar/ekrandan-ogrendiklerim.md',
   },
   {
     name: 'YouTube notlarım',
-    icon: 'mdi-youtube',
+    icon: '$youtube',
     description: 'İzlediğim videoları kendi bakış açımla yorumladığım notlar; video yazının içinde.',
     template: 'sablonlar/youtube-notum.md',
   },
   {
     name: 'Tasarım',
-    icon: 'mdi-palette-outline',
+    icon: '$palette-outline',
     description: 'Arayüz, renk ve tipografi üzerine denemelerim.',
     template: 'sablonlar/ogrenme-gunlugu.md',
   },

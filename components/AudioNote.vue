@@ -10,7 +10,7 @@ defineProps<{
 <template>
   <figure class="audio-note">
     <figcaption class="d-flex align-center ga-2 mb-3">
-      <v-icon icon="mdi-microphone-outline" color="primary" size="20" />
+      <v-icon icon="$microphone-outline" color="primary" size="20" />
       <span class="kicker kicker--accent">Sesli not</span>
       <span v-if="label" class="label">· {{ label }}</span>
     </figcaption>

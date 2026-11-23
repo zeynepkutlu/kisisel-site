@@ -136,7 +136,7 @@ const randomPosts = computed<BlogCollectionItem[]>(() =>
     <section v-if="hasMany" class="mb-8">
       <SectionHeader title="Arşivden rastgele">
         <template #action>
-          <v-btn variant="outlined" size="small" prepend-icon="mdi-shuffle-variant" @click="shuffle">
+          <v-btn variant="outlined" size="small" prepend-icon="$shuffle-variant" @click="shuffle">
             Karıştır
           </v-btn>
         </template>

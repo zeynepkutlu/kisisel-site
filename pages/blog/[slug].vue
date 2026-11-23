@@ -47,8 +47,8 @@ useJsonLd({
 })
 </script>
 
+<!-- max-width: okuma genişliği dar tutuluyor, uzun satırlar zor okunur -->
 <template>
-  <!-- Okuma genişliği dar tutuluyor: uzun satırlar zor okunur -->
   <v-container v-if="post" style="max-width: 760px">
     <header class="pt-10 pb-8 pt-md-16">
       <NuxtLink to="/blog" class="ui-link">← Tüm yazılar</NuxtLink>

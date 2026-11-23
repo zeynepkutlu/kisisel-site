@@ -40,7 +40,7 @@ defineProps<{
     <div v-if="link || repo" class="d-flex flex-wrap ga-5 mt-4 pt-4 links">
       <a v-if="link" :href="link" target="_blank" rel="noopener" class="ui-link">Siteyi aç ↗</a>
       <a v-if="repo" :href="repo" target="_blank" rel="noopener" class="ui-link">
-        <v-icon icon="mdi-github" size="16" class="mr-1" />Kodu gör ↗
+        <v-icon icon="$github" size="16" class="mr-1" />Kodu gör ↗
       </a>
     </div>
   </v-card>
