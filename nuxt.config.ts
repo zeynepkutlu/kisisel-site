@@ -18,6 +18,16 @@ const csp = [
   "frame-ancestors 'none'", // site başka bir sitenin içine gömülemesin
 ].join('; ')
 
+// Koyu tema yanıp sönmesin: sayfalar build sırasında açık temayla hazırlanıyor (prerender), sunucu cookie'yi
+// göremiyor. Bu betik sayfa çizilmeden önce çalışır; cookie koyu diyorsa sınıfları koyuya çevirir.
+// MutationObserver: HTML tarayıcıya geldikçe eklenen her öğeyi yakalar. Sayfa tamamlanınca durur.
+const themeScript = `(function(){if(!/(?:^|; )theme=dark(?:;|$)/.test(document.cookie))return;
+function fix(n){if(n.nodeType!==1)return;var a=[].slice.call(n.querySelectorAll('.v-theme--light'));if(n.matches('.v-theme--light'))a.push(n);
+a.forEach(function(e){e.classList.replace('v-theme--light','v-theme--dark')})}
+var o=new MutationObserver(function(l){l.forEach(function(m){m.addedNodes.forEach(fix)})});
+o.observe(document.documentElement,{childList:true,subtree:true});
+document.addEventListener('DOMContentLoaded',function(){fix(document.documentElement);o.disconnect()})})()`
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-24',
@@ -27,6 +37,7 @@ export default defineNuxtConfig({
     head: {
       // Sayfa başlığı kuralı app.vue'de (ana sayfa için özel başlık gerektiği için orada fonksiyon olarak).
       htmlAttrs: { lang: 'tr' },
+      script: [{ innerHTML: themeScript, tagPriority: 'critical' }],
       // Her sayfada aynı olan etiketler: ikonlar, tema rengi, site adı, dil
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -50,8 +61,16 @@ export default defineNuxtConfig({
     '/izlediklerim': { redirect: { to: '/raf', statusCode: 301 } },
   },
 
-  // Güvenlik başlıkları. $production: sadece yayında (geliştirmede Nuxt DevTools ve canlı yenileme bozulmasın)
+  // $production: sadece yayın build'inde geçerli ayarlar (npm run dev etkilenmez)
   $production: {
+    // Prerender: sayfalar build sırasında bir kez HTML olarak hazırlanır, ziyaretçiye hazır dosya gider.
+    // crawlLinks: "/" sayfasından başlayıp linkleri izler; yeni yazı ve kitaplar kendiliğinden dahil olur.
+    // Sayfalar arası geçişte de küçük bir veri dosyası (_payload.json) indirilir, 865 KB'lık SQLite değil.
+    nitro: {
+      // ignore: yönlendirme adresi sayfaya dönüşmesin, 301 olarak kalsın
+      prerender: { crawlLinks: true, routes: ['/'], ignore: ['/izlediklerim'] },
+    },
+    // Güvenlik başlıkları (geliştirmede Nuxt DevTools ve canlı yenileme bozulmasın diye sadece yayında)
     routeRules: {
       '/**': {
         headers: {

@@ -5,8 +5,12 @@ const route = useRoute()
 // İsim, açıklama ve sosyal linkler composables/useProfile.ts'ten geliyor
 const profile = useProfile()
 
-// İstatistikler: yazı ve proje sayısı (içerik eklendikçe kendiliğinden artar)
-const { data: postCount } = await useAsyncData('footer-post-count', () => queryCollection('blog').count())
+// Yazı adresleri: hem yazı sayısı hem "Rastgele bir yazı" butonu için (içerik eklendikçe kendiliğinden artar)
+const { data: postPaths } = await useAsyncData('footer-post-paths', async () => {
+  const posts = await queryCollection('blog').select('path').all()
+  return posts.map((p) => p.path)
+})
+const { goToRandomPost } = useRandomPost()
 const projectCount = useProjects().length
 
 // Yılı otomatik al
@@ -51,7 +55,7 @@ const year = new Date().getFullYear()
 
       <div class="d-flex flex-column flex-sm-row justify-space-between ga-2 kicker">
         <span>© {{ year }} {{ profile.name }}</span>
-        <span>{{ projectCount }} proje · {{ postCount ?? 0 }} yazı · {{ profile.certificates.length }} sertifika</span>
+        <span>{{ projectCount }} proje · {{ postPaths?.length ?? 0 }} yazı · {{ profile.certificates.length }} sertifika</span>
       </div>
     </v-container>
   </footer>

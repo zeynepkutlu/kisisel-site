@@ -27,6 +27,11 @@ const drawer = ref(false)
 const theme = useTheme()
 const themeCookie = useThemeCookie()
 const isDark = computed(() => theme.global.current.value.dark)
+// Sayfalar önceden açık temayla hazırlandığı için butonun ikonu ilk anda hep ay; tarayıcıda (mounted) doğrusuna geçer.
+// Böylece hazır HTML ile Vue'nun çizdiği aynı olur (hydration uyumu).
+const mounted = ref(false)
+onMounted(() => (mounted.value = true))
+const showSun = computed(() => mounted.value && isDark.value)
 function toggleTheme() {
   const next = isDark.value ? 'light' : 'dark'
   theme.global.name.value = next
@@ -69,11 +74,11 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
       </nav>
 
       <v-btn
-        :icon="isDark ? '$white-balance-sunny' : '$moon-waning-crescent'"
+        :icon="showSun ? '$white-balance-sunny' : '$moon-waning-crescent'"
         variant="text"
         size="small"
         class="ml-4"
-        :aria-label="isDark ? 'Açık temaya geç' : 'Koyu temaya geç'"
+        :aria-label="showSun ? 'Açık temaya geç' : 'Koyu temaya geç'"
         @click="toggleTheme"
       />
 

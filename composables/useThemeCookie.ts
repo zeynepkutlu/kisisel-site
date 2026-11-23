@@ -5,7 +5,7 @@ export type ThemeName = 'light' | 'dark'
 
 export function useThemeCookie() {
   return useCookie<ThemeName>('theme', {
-    default: () => 'light', // site lavanta tonlu açık temayla açılır
+    default: () => 'light', // site bej tonlu açık temayla açılır
     maxAge: 60 * 60 * 24 * 365, // 1 yıl (saniye cinsinden)
     sameSite: 'lax',
   })

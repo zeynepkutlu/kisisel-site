@@ -2,6 +2,7 @@
 // Dinamik sayfa: dosya adındaki [slug] adresteki değişken kısımdır.
 // /blog/nuxt-ogreniyorum adresinde route.params.slug = 'nuxt-ogreniyorum' olur.
 const route = useRoute()
+const { goToRandomPost } = useRandomPost()
 
 // Adrese karşılık gelen Markdown dosyasını bul
 const { data: post } = await useAsyncData(`blog-${route.params.slug}`, () =>
