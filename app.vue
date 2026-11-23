@@ -38,6 +38,7 @@ useJsonLd({
   <NuxtPage> ise o anki adrese ait sayfayı gösterir.
 -->
 <template>
+  <LoadingBar />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>

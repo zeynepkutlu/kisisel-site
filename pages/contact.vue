@@ -23,6 +23,15 @@ const gotcha = ref('') // spam tuzağı: insanlar bu alanı görmez, botlar dold
 const loading = ref(false) // gönderilirken butonda dönen ikon
 const sent = ref(false) // başarı bildirimi
 const error = ref(false) // hata bildirimi
+const notConnected = ref(false) // "form bağlı değil" bildirimi
+
+// Formspree ID'si yoksa geliştiriciye konsolda haber ver (sunucuda değil, sadece tarayıcıda)
+function warnNotConnected() {
+  console.warn('[iletişim] formspreeId boş: NUXT_PUBLIC_FORMSPREE_ID ayarlanmadığı için form gönderilemez.')
+}
+onMounted(() => {
+  if (!formspreeId) warnNotConnected()
+})
 
 // Doğrulama kuralları: true dönerse geçerli, metin dönerse o metin hata olarak gösterilir
 const rules = {
@@ -31,8 +40,15 @@ const rules = {
 }
 
 async function submit() {
+  // Form bağlı değilse sessizce durma: ziyaretçiye bildirim göster, konsola uyarı yaz
+  if (!formspreeId) {
+    notConnected.value = true
+    warnNotConnected()
+    return
+  }
+
   const { valid } = await form.value.validate()
-  if (!valid || !formspreeId) return
+  if (!valid) return
 
   loading.value = true
   try {
@@ -91,7 +107,6 @@ async function submit() {
           block
           append-icon="mdi-send"
           :loading="loading"
-          :disabled="!formspreeId"
         >
           Gönder
         </v-btn>
@@ -100,6 +115,7 @@ async function submit() {
 
     <v-snackbar v-model="sent" color="success" timeout="4000">Mesajın gönderildi, teşekkürler!</v-snackbar>
     <v-snackbar v-model="error" color="error" timeout="5000">Mesaj gönderilemedi, lütfen tekrar dene.</v-snackbar>
+    <v-snackbar v-model="notConnected" color="warning" timeout="5000">Form şu an kapalı, mesajın gönderilmedi.</v-snackbar>
   </v-container>
 </template>
 
