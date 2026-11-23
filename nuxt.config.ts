@@ -39,6 +39,8 @@ export default defineNuxtConfig({
       // Sitenin yayındaki adresi (sonunda / olmadan). SEO linkleri (canonical, paylaşım görseli,
       // site haritası) bununla kurulur. Yayına alınca .env'deki NUXT_PUBLIC_SITE_URL ile değiştir.
       siteUrl: 'https://kisisel-site-rust.vercel.app',
+      // Google Search Console doğrulama kodu ("HTML etiketi" yöntemindeki content değeri). Gizli değil.
+      googleVerification: '',
     },
   },
 

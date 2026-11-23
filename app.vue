@@ -7,6 +7,9 @@ useHead({
   titleTemplate: (title) => (title ? `${title} · ${SITE_NAME}` : HOME_TITLE),
 })
 
+// Google Search Console doğrulaması: sitenin sana ait olduğunu kanıtlayan etiket (kod boşsa yazılmaz)
+useSeoMeta({ googleSiteVerification: useRuntimeConfig().public.googleVerification || undefined })
+
 // Google için site ve kişi bilgisi (JSON-LD yapılandırılmış veri).
 // sameAs: aynı kişiye ait diğer profiller; Google bunları birbirine bağlar.
 const profile = useProfile()

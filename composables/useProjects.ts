@@ -31,7 +31,8 @@ export function useProjects(): Project[] {
     },
     {
       title: 'Kişisel Web Sitesi',
-      description: 'Şu an gezdiğin site. Tasarımından içeriğine kadar kendim hazırladım.',
+      description:
+        'Şu an gezdiğin site. Nuxt öğrenirken, yapay zekâ desteğiyle geliştirdim; tasarım kararları ve içerik bana ait.',
       kind: 'Kişisel proje',
       tags: ['Nuxt 3', 'Vuetify', 'TypeScript', 'Nuxt Content'],
       icon: 'mdi-web',
