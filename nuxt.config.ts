@@ -37,7 +37,7 @@ export default defineNuxtConfig({
       formspreeId: '',
       // Sitenin yayındaki adresi (sonunda / olmadan). SEO linkleri (canonical, paylaşım görseli,
       // site haritası) bununla kurulur. Yayına alınca .env'deki NUXT_PUBLIC_SITE_URL ile değiştir.
-      siteUrl: 'https://zeynepkutlu.vercel.app',
+      siteUrl: 'https://kisisel-site-rust.vercel.app',
     },
   },
 
